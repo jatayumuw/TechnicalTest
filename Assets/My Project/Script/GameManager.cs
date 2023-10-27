@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
     IEnumerator RotateCamera(float targetRotation)
     {
         isRotating = true;
+        Debug.Log("isRotating= " + IsRotating);
+
         foreach (PlayerController playerController in FindObjectsOfType<PlayerController>())
         {
             if (playerController.CanRotateCamera())
@@ -66,15 +68,19 @@ public class GameManager : MonoBehaviour
                 Quaternion endRotation = Quaternion.Euler(0f, targetRotation, 0f) * startRotation;
                 float elapsedTime = 0;
 
+                Debug.Log("1");
                 while (elapsedTime < rotationTime)
                 {
                     cameraTransform.rotation = Quaternion.Slerp(startRotation, endRotation, elapsedTime / rotationTime);
                     elapsedTime += Time.deltaTime;
                     yield return null;
+                    Debug.Log("2");
                 }
 
                 cameraTransform.rotation = endRotation;
                 isRotating = false;
+
+                Debug.Log("isRotating= " + IsRotating);
             }
         }
     }
