@@ -11,11 +11,14 @@ public class ConversationManager : MonoBehaviour
     public Button nextButton;
     public GameObject chatButton;
 
+    private GameManager gameManager;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             chatButton.SetActive(true);
+            gameManager.hudPanel.SetActive(false);
         }
     }
 
@@ -24,6 +27,7 @@ public class ConversationManager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             chatButton.SetActive(false);
+            gameManager.hudPanel.SetActive(true);
         }
     }
 
@@ -36,6 +40,8 @@ public class ConversationManager : MonoBehaviour
     {
         chatButton.SetActive(false);
         chatPanel.SetActive(false);
+
+        gameManager = FindObjectOfType<GameManager>();
     }
     public void StartConversation()
     {
@@ -47,6 +53,8 @@ public class ConversationManager : MonoBehaviour
             nextButton.interactable = true; // Re-enable the button if it was disabled.
         }
         nextButton.onClick.AddListener(DisplayNextChatEntry);
+
+        Debug.Log("Button Clicked");
     }
 
 
